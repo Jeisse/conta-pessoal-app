@@ -1,4 +1,4 @@
-# Cont Pessoal
+# Conta Pessoal
 
 Personal finance web app: import bank statements, categorize transactions, and ask questions about your spending. FastAPI backend + React (Vite) frontend.
 
@@ -77,6 +77,20 @@ cd frontend && npm run dev
 ```
 
 Then open `http://localhost:5173` in your browser.
+
+## Backing up the database
+
+The app stores everything in a single SQLite file (`backend/app/data/ledger.db`). To back it up safely:
+
+```bash
+cd backend
+source venv/bin/activate
+python scripts/backup_db.py
+```
+
+This creates a consistent, timestamped snapshot in `backend/backups/` (safe to run even while the app is running, since it uses SQLite's backup API instead of copying the raw file). Only the last 10 snapshots are kept — older ones are pruned automatically.
+
+Run it whenever you want a backup, then copy the newest file from `backend/backups/` into your Google Drive (or wherever you keep backups) for safekeeping.
 
 ## Other frontend scripts
 
